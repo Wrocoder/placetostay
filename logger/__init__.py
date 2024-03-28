@@ -3,7 +3,7 @@ import logging
 import colorlog
 
 
-def setup_colored_logger(logger_name='SleepLogs'):
+def setup_colored_logger(logger_name='WebpLogs'):
     logger = logging.getLogger(logger_name)
     logger.setLevel(logging.DEBUG)
     formatter_string = (
