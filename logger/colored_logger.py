@@ -5,7 +5,7 @@ import colorlog
 
 class ColoredLogger:
     """ Logging for the project """
-    def __init__(self, logger_name='SleepLogs'):
+    def __init__(self, logger_name='WebLogs'):
         self.logger = logging.getLogger(logger_name)
         self._setup_logger()
 
