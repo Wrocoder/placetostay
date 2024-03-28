@@ -20,11 +20,9 @@ class ColoredLogger:
             datefmt="%Y-%m-%d %H:%M:%S",
             reset=True,
             log_colors={
-                'DEBUG': 'cyan',
                 'INFO': 'green',
                 'WARNING': 'yellow',
                 'ERROR': 'red',
-                'CRITICAL': 'red,bg_white',
             },
             secondary_log_colors={},
             style='{'
