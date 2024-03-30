@@ -1,17 +1,19 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
-from django.template import loader
-from django.http import Http404
+from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+
 from .models import Hotel
 
 
 def index(request):
-    hotel_list = Hotel.objects.order_by("hotel_id")[:10]
-    template = loader.get_template("WorldHotels/index.html")
-    context = {
-        "hotel_list": hotel_list,
-    }
-    return HttpResponse(template.render(context, request))
+    hotel_list = Hotel.objects.order_by("hotel_id")
+    paginator = Paginator(hotel_list, 30)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'page_obj': page_obj}
+    return render(request, "WorldHotels/index.html", context)
 
 
 def hotel_detail(request, hotel_id):
