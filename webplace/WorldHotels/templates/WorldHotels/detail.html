@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="py-4">
+    <h2 class="mb-3">{{ hotel.hotel_name }}</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ hotel.star_rating }} Star Rating</h5>
+            <p class="card-text">
+                <strong>Address:</strong> {{ hotel.addressline1 }}, {{ hotel.city }}, {{ hotel.state }}, {{ hotel.country }}
+            </p>
+            {% if hotel.url %}
+                <a href="{{ hotel.url }}/" class="btn btn-primary">Visit Website</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if photo_urls %}
+        <div id="hotelPhotosCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for photo in photo_urls %}
+                    <div class="carousel-item{% if forloop.first %} active{% endif %}" style="text-align: center;">
+                        <img src="{{ photo }}" style="max-width: 100%; height: auto;" alt="Hotel Photo">
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

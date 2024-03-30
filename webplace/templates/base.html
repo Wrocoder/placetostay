@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Place To Stay{% endblock %}</title>
+  {% load django_bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+</head>
+<body>
+
+<div class="container my-4">
+  <header class="mb-4">
+    <h1 class="display-4">Karen, Welcome to Our Site!</h1>
+  </header>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light rounded mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">World Hotels</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">FEEDBACK</a>
+          </li>
+          <!-- More nav items can be added here -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {% block content %}
+  <!-- Content goes here -->
+  {% endblock %}
+
+  <footer class="pt-4 my-md-5 pt-md-5 border-top">
+    <div class="row">
+      <div class="col-12 col-md">
+        <small class="d-block mb-3 text-muted">&copy; 2024 Dmitry's & Vovan's company</small>
+      </div>
+      <!-- Additional footer elements can be added here -->
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>
