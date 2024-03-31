@@ -1,7 +1,9 @@
+import os
+
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-
+from .forms import SearchForm
 from .models import Hotel
 
 
@@ -22,5 +24,24 @@ def hotel_detail(request, hotel_id):
 
     photo_urls = [url for url in photo_urls if url]
 
-    context = {'hotel': hotel, 'photo_urls': photo_urls}
+    context = {'hotel': hotel,
+               'photo_urls': photo_urls,
+               'google_maps_api': os.getenv('GOOGLE_MAPS_API_KEY')}
+
     return render(request, 'WorldHotels/detail.html', context)
+
+
+def search_hotels(request):
+    if request.method == "POST":
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            # ToDo available month filtering
+            month = form.cleaned_data['month']
+            country = form.cleaned_data['country']
+
+            hotels = Hotel.objects.filter(country=country)
+            return render(request, 'WorldHotels/result.html', {'hotels': hotels})
+    else:
+        form = SearchForm()
+
+    return render(request, 'WorldHotels/search.html', {'form': form})

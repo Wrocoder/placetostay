@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="py-4">
+    <h2 class="mb-3">Available Hotels</h2>
+
+    {% for hotel in hotels %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ hotel.hotel_name }}</h5>
+                <p class="card-text">
+                    <strong>Country:</strong> {{ hotel.country }}
+                    <strong>City:</strong> {{ hotel.city }}
+                </p>
+                <a href="/WorldHotels/{{ hotel.hotel_id }}/" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-warning" role="alert">
+            No Hotels are available.
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
