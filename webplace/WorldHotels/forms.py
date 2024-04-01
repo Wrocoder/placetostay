@@ -17,4 +17,5 @@ class SearchForm(forms.Form):
         ('November', 'November'),
         ('December', 'December')
     ])
+    # TODO countries from database
     country = forms.ChoiceField(choices=[(country.name, country.name) for country in pycountry.countries])
