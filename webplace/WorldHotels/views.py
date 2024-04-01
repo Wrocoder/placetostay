@@ -1,8 +1,12 @@
 import os
+from itertools import groupby
 
+import requests
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.utils.dateparse import parse_datetime
+
 from .forms import SearchForm
 from .models import Hotel
 
@@ -18,15 +22,34 @@ def index(request):
     return render(request, "WorldHotels/index.html", context)
 
 
+def get_weather_forecast(lat, lon):
+    url = f"https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={os.getenv('WEATHER_API_KEY')}"
+
+    response = requests.get(url)
+    weather_data = response.json()
+    weather_list = weather_data['list']
+    for item in weather_list:
+        item['dt'] = parse_datetime(item['dt_txt'])
+    grouped_weather = {
+        k: list(g) for k, g in groupby(weather_list, key=lambda x: parse_datetime(x['dt_txt']).date())
+    }
+    # print(grouped_weather)
+    return grouped_weather
+
+
 def hotel_detail(request, hotel_id):
     hotel = get_object_or_404(Hotel, pk=hotel_id)
     photo_urls = [hotel.photo1, hotel.photo2, hotel.photo3, hotel.photo4, hotel.photo5]
 
     photo_urls = [url for url in photo_urls if url]
 
+    weather_forecast = get_weather_forecast(hotel.latitude, hotel.longitude)
+
     context = {'hotel': hotel,
                'photo_urls': photo_urls,
-               'google_maps_api': os.getenv('GOOGLE_MAPS_API_KEY')}
+               'google_maps_api': os.getenv('GOOGLE_MAPS_API_KEY'),
+               'weather_forecast': weather_forecast,
+               'weather_api_key': os.getenv('WEATHER_API_KEY')}
 
     return render(request, 'WorldHotels/detail.html', context)
 

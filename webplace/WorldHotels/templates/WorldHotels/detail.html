@@ -50,4 +50,70 @@
     }
 </script>
 
+<!--
+
+<div id="openweathermap-widget-11"></div>
+<script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
+<script>
+    window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
+    window.myWidgetParam.push({
+        id: 11,
+        cityid: '2643743',
+        appid: '{{ weather_api_key }}',
+        units: 'imperial',
+        containerid: 'openweathermap-widget-11',
+    });
+    (function() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.charset = "utf-8";
+        script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(script, s);
+    })();
+</script>
+
+-->
+
+<!-- {{ weather_forecast }} -->
+<!--<div class="container py-4">
+    <h2 class="mb-3">Weather Forecast</h2>
+
+    {% for item in weather_forecast.list %}
+        <div class="weather-forecast-item">
+            <p><strong>Date and Time:</strong> {{ item.dt_txt }}</p>
+            <p><strong>Temperature:</strong> {{ item.main.temp }}°F</p>
+            <p><strong>Weather:</strong> {{ item.weather.0.description }}</p>
+            <p><strong>Clouds:</strong> {{ item.clouds.all }}%</p>
+            <p><strong>Wind Speed:</strong> {{ item.wind.speed }} m/s</p>
+
+        </div>
+    {% endfor %}
+</div> -->
+
+<div class="container py-4">
+    <h2 class="mb-3">Weather Forecast</h2>
+
+    <div class="row">
+        {% for date, items in weather_forecast.items %}
+            <div class="col mb-3">
+                <div class="card">
+                    <div class="card-header">{{ date }}</div>
+                    <div class="card-body">
+                        {% for item in items %}
+                            <p><strong>Time:</strong> {{ item.dt|date:"H:i" }}</p>
+                            <p><strong>Temperature:</strong> {{ item.main.temp }}°F</p>
+                            <p><strong>Weather:</strong> {{ item.weather.0.description }}</p>
+                            <!-- Additional weather attributes -->
+                            <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
 {% endblock %}
