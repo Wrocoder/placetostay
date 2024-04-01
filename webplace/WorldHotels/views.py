@@ -63,7 +63,8 @@ def search_hotels(request):
             country = form.cleaned_data['country']
 
             hotels = Hotel.objects.filter(country=country)
-            return render(request, 'WorldHotels/result.html', {'hotels': hotels})
+            context = {'hotels': hotels, 'country': country}
+            return render(request, 'WorldHotels/result.html', context)
     else:
         form = SearchForm()
 
