@@ -43,3 +43,13 @@ class Hotel(models.Model):
     rates_currency = models.CharField(max_length=20, null=True, blank=True)
     rates_from_exclusive = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     accommodation_type = models.CharField(max_length=200, null=True, blank=True)
+
+
+class TourismData(models.Model):
+    country = models.CharField(max_length=100, null=True, verbose_name="Continent and Destination Country")
+    tourism_concept = models.CharField(max_length=50, null=True, verbose_name="Tourism Concept")
+    period = models.CharField(max_length=10, null=True, verbose_name="Period")
+    total = models.FloatField(null=True, verbose_name="Total")
+
+    def __str__(self):
+        return f"{self.country} - {self.period}"

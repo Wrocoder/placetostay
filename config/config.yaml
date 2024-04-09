@@ -6,3 +6,7 @@ db:
 hotels:
   source_path: DataProcess/source/E342B777-64FD-4A49-9C9F-FEF4BA635863_EN.csv
   target_table: WorldHotels_hotel
+
+stat_tourism:
+  source_path: DataProcess/source/52051.csv
+  target_table: WorldHotels_tourismdata
