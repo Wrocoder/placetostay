@@ -10,7 +10,7 @@ from logger.colored_logger import ColoredLogger
 logger = ColoredLogger(logger_name=__name__).get_logger()
 
 
-class DataTourProcessor:
+class DataTourStatProcessor:
     def __init__(self, config):
         self.conf = config
         self.filename = self.conf['stat_tourism']['source_path']

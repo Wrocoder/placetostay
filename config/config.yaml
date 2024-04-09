@@ -3,6 +3,7 @@ db:
   user: postgres
   host: 127.0.0.1
   port: 5432
+
 hotels:
   source_path: DataProcess/source/E342B777-64FD-4A49-9C9F-FEF4BA635863_EN.csv
   target_table: WorldHotels_hotel
