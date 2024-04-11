@@ -44,12 +44,38 @@ class Hotel(models.Model):
     rates_from_exclusive = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     accommodation_type = models.CharField(max_length=200, null=True, blank=True)
 
+    def __str__(self):
+        return f"{self.country} - {self.hotel_name}"
+
+    class Meta:
+        verbose_name_plural = "Hotel Data"
+
 
 class TourismData(models.Model):
     country = models.CharField(max_length=100, null=True, verbose_name="Continent and Destination Country")
     tourism_concept = models.CharField(max_length=50, null=True, verbose_name="Tourism Concept")
     period = models.CharField(max_length=10, null=True, verbose_name="Period")
+    year = models.IntegerField(null=True, verbose_name="Year")
+    month = models.CharField(max_length=20, null=True, verbose_name="Month")
     total = models.FloatField(null=True, verbose_name="Total")
 
     def __str__(self):
         return f"{self.country} - {self.period}"
+
+    class Meta:
+        verbose_name_plural = "Tourism Data"
+
+
+class DummyWeatherData(models.Model):
+    country = models.CharField(max_length=100)
+    month = models.CharField(max_length=10)
+    average_temperature = models.CharField(max_length=10)
+    precipitation_level = models.CharField(max_length=10)
+    air_speed = models.CharField(max_length=10)
+    recommended_to_visit = models.CharField(max_length=3)
+
+    def __str__(self):
+        return f"{self.country} - {self.month}"
+
+    class Meta:
+        verbose_name_plural = "Weather Data"

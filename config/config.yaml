@@ -11,3 +11,6 @@ hotels:
 stat_tourism:
   source_path: DataProcess/source/52051.csv
   target_table: WorldHotels_tourismdata
+
+dummy_weather:
+  target_table: WorldHotels_dummyweatherdata

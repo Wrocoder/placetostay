@@ -3,12 +3,13 @@ from itertools import groupby
 
 import requests
 from django.core.paginator import Paginator
+from django.db.models import Max
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.utils.dateparse import parse_datetime
 
 from .forms import SearchForm
-from .models import Hotel
+from .models import Hotel, DummyWeatherData, TourismData
 
 
 def index(request):
@@ -39,6 +40,7 @@ def get_weather_forecast(lat, lon):
 
 def hotel_detail(request, hotel_id):
     hotel = get_object_or_404(Hotel, pk=hotel_id)
+
     photo_urls = [hotel.photo1, hotel.photo2, hotel.photo3, hotel.photo4, hotel.photo5]
 
     photo_urls = [url for url in photo_urls if url]
@@ -58,12 +60,21 @@ def search_hotels(request):
     if request.method == "POST":
         form = SearchForm(request.POST)
         if form.is_valid():
-            # ToDo available month filtering
             month = form.cleaned_data['month']
             country = form.cleaned_data['country']
 
+            average_weather = DummyWeatherData.objects.filter(country=country, month=month)
             hotels = Hotel.objects.filter(country=country)
-            context = {'hotels': hotels, 'country': country}
+
+            max_year = TourismData.objects.filter(country=country, month=month) \
+                .aggregate(max_year=Max('year'))['max_year']
+
+            tourists = TourismData.objects.filter(country=country, month=month, year=max_year)
+
+            context = {'hotels': hotels, 'country': country,
+                       'month': month, 'average_weather': average_weather[0],
+                       'tourists': tourists[0]}
+
             return render(request, 'WorldHotels/result.html', context)
     else:
         form = SearchForm()

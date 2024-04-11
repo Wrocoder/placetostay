@@ -2,15 +2,58 @@
 
 {% block content %}
 
-<div class="py-4">
-    <h2 class="mb-3">Available hotels in {{ country }}</h2>
+<div class="container py-4">
+    <h2 class="mb-4 text-center">Average weather in {{ country }} in {{ month }}</h2>
+
+<div class="text-center mb-4">
+    <div class="row justify-content-center">
+        <div class="col-md-3 mb-3">
+            <div class="p-3 border rounded bg-light">
+                <h5>Average Temperature</h5>
+                <span class="card-text">{{ average_weather.average_temperature }}</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 border rounded bg-light">
+                <h5>Precipitation Level</h5>
+                <span class="card-text">{{ average_weather.precipitation_level }}</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 border rounded bg-light">
+                <h5>Air Speed</h5>
+                <span class="card-text">{{ average_weather.air_speed }}</span>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="p-3 border rounded bg-light">
+                <h5>Recommended to Visit</h5>
+                <span class="card-text">{{ average_weather.recommended_to_visit }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mb-4">
+    <div class="row justify-content-center">
+        <div class="col-md-3 mb-3">
+            <div class="p-3 border rounded bg-light">
+                <h5>Amount of tourists in {{ tourists.month }} in {{ tourists.year }} </h5>
+                <span class="card-text">{{ tourists.total }}</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container py-4">
+    <h2 class="mb-4 text-center">Available hotels in {{ country }}</h2>
 
     {% for hotel in hotels %}
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title">{{ hotel.hotel_name }}</h5>
                 <p class="card-text">
-                    <strong>Country:</strong> {{ hotel.country }}
                     <strong>City:</strong> {{ hotel.city }}
                 </p>
                 <a href="/WorldHotels/{{ hotel.hotel_id }}/" class="btn btn-primary">View Details</a>

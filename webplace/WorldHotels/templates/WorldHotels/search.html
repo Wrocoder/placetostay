@@ -3,9 +3,9 @@
 {% block content %}
 
 <div class="container py-4">
-    <h2 class="mb-3">Search for Hotels</h2>
+    <h2 class="mb-3">Search for Hotels/Trip</h2>
 
-    <!-- Select2 -->
+    <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
     <form method="post" class="form">
@@ -16,16 +16,12 @@
                 <div class="col-md-6 mb-3">
                     <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
 
-                    <!-- ChoiceField -->
-                    {% if field.field.widget.input_type == 'select' %}
-                        <select name="{{ field.html_name }}" class="form-control" id="{{ field.id_for_label }}">
-                            {% for key, value in field.field.choices %}
-                                <option value="{{ key }}"{% if field.value == key %} selected {% endif %}>{{ value }}</option>
-                            {% endfor %}
-                        </select>
-                    {% else %}
-                        <input type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" class="form-control" id="{{ field.id_for_label }}" {% if field.field.required %}required{% endif %} {% if field.value %}value="{{ field.value|stringformat:'s' }}"{% endif %}>
-                    {% endif %}
+                    <!-- Select2 -->
+                    <select name="{{ field.html_name }}" class="form-control select2" id="{{ field.id_for_label }}">
+                        {% for key, value in field.field.choices %}
+                            <option value="{{ key }}" {% if field.value == key %} selected {% endif %}>{{ value }}</option>
+                        {% endfor %}
+                    </select>
 
                     {% if field.help_text %}
                         <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -39,11 +35,11 @@
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 
-    <!-- Select2 -->
+    <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.form-control').select2({
+            $('.select2').select2({
                 placeholder: 'Select an option',
                 allowClear: true
             });

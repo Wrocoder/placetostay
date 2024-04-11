@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import psycopg2
 
-from DataProcess.scripts.map_countries import country_mapping, tourism_concept_mapping, translation_dict
+from DataProcess.scripts.map_countries import country_mapping, tourism_concept_mapping, translation_dict, month_dict
 from logger.colored_logger import ColoredLogger
 
 logger = ColoredLogger(logger_name=__name__).get_logger()
@@ -57,7 +57,9 @@ class DataTourStatProcessor:
 
         self.dataframe = self.dataframe.dropna()
         self.dataframe = self.dataframe[~self.dataframe['period'].str.startswith(('2021', '2020', '2019', '2018'))]
-
+        # prepare time_period
+        self.dataframe['month'] = self.dataframe['period'].apply(lambda x: month_dict[x[-2:]])
+        self.dataframe['year'] = self.dataframe['period'].str[:4].astype(int)
         # find relevant values
         idx = self.dataframe.groupby(['country', 'period'])['total'].idxmax()
         self.dataframe = self.dataframe.loc[idx]
