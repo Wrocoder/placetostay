@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.utils.dateparse import parse_datetime
 
 from .forms import SearchForm
-from .models import Hotel, DummyWeatherData, TourismData
+from .models import Hotel, DummyWeatherData, TourismData, CountryDescriptionData
 
 
 def index(request):
@@ -71,9 +71,12 @@ def search_hotels(request):
 
             tourists = TourismData.objects.filter(country=country, month=month, year=max_year)
 
+            country_description = CountryDescriptionData.objects.filter(country_name=country)
+
             context = {'hotels': hotels, 'country': country,
                        'month': month, 'average_weather': average_weather[0],
-                       'tourists': tourists[0]}
+                       'tourists': tourists[0],
+                       'country_description': country_description[0]}
 
             return render(request, 'WorldHotels/result.html', context)
     else:

@@ -79,3 +79,16 @@ class DummyWeatherData(models.Model):
 
     class Meta:
         verbose_name_plural = "Weather Data"
+
+
+class CountryDescriptionData(models.Model):
+    country_id = models.UUIDField(primary_key=True, editable=False)
+    country_name = models.CharField(max_length=100)
+    continent = models.CharField(max_length=100)
+    country_description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.country_name} - {self.continent}"
+
+    class Meta:
+        verbose_name_plural = "Country Data"

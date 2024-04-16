@@ -15,7 +15,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
   <style>
     body {
-      background: url('{% static 'images/old3.png' %}') no-repeat center center fixed;
+      background: url('{% static 'images/background.png' %}') no-repeat center center fixed;
       background-size: cover; /* Cover all available view */
       color: #03273B; /* text */
     }
@@ -25,21 +25,22 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* shadow */
     }
 
-    .navbar-brand img {
-      border-radius: 5px; /* logo */
-    }
-
-    .nav-link {
-      color: #03273B; /* links */
-    }
-
-    .nav-link:hover {
-      color: #5FF2E9; /* links при наведении */
-    }
-
     .footer {
       background-color: #03273B; /* foot */
       color: #ffffff;
+    }
+    .navbar-custom {
+        background-color: #004F6B; /* change */
+    }
+    .nav-link {
+        color: #ffffff !important; /* links */
+    }
+    .nav-link:hover {
+        background-color: #016788; /* dark-blue */
+        border-radius: 5px; /*  */
+    }
+    .navbar-brand img {
+        height: 60px; /* logo */
     }
 
   </style>
@@ -47,28 +48,33 @@
 <body>
 
 <div class="container my-4">
-  <header class="mb-4">
-    <h1 class="display-4">Karen, Welcome to Our Site!</h1>
-  </header>
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light rounded mb-4">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">
-        <img src="{% static 'images/logo.png' %}" alt="Company Logo" height="65">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/search_hotels">SEARCH HOTEL</a>
-          </li>
-          <!-- More nav items -->
-        </ul>
-      </div>
-    </div>
-  </nav>
+<nav class="navbar navbar-expand-lg navbar-custom navbar-dark rounded mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'images/logo.png' %}" alt="Company Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search_hotels">Search Hotel</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Most Visited Countries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">About Us</a>
+                    </li>
+                    <!-- More nav items -->
+                </ul>
+            </div>
+        </div>
+    </nav>
 
   {% block content %}
   <!-- Content -->
