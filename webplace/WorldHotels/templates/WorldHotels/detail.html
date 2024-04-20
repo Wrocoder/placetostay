@@ -4,8 +4,8 @@
 {% block content %}
 
 <div class="py-4">
-    <h2 class="mb-3">{{ hotel.hotel_name }}</h2>
-    <h5 class="card-title">{{ hotel.star_rating }} Star Rating</h5>
+    <h1 class="mb-3">{{ hotel.hotel_name }}</h1>
+    <h6 class="card-title">{{ hotel.star_rating }} Star Rating</h6>
     {% star_rating hotel.star_rating %}
     <!-- Overview Section -->
     {% if hotel.overview %}

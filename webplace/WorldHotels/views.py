@@ -70,6 +70,8 @@ def search_hotels(request):
                 .aggregate(max_year=Max('year'))['max_year']
 
             tourists = TourismData.objects.filter(country=country, month=month, year=max_year)
+            if not tourists:  # Check if the list is empty
+                tourists = ['WOW', ]
 
             country_description = CountryDescriptionData.objects.filter(country_name=country)
 
