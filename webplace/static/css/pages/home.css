@@ -1,0 +1,9 @@
+.home-hero {
+    background-color: var(--accent-color);
+    padding: 50px 0;
+    text-align: center;
+}
+
+.home-content {
+    padding: 2rem;
+}

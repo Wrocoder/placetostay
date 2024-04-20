@@ -1,0 +1,35 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    color: var(--text-color);
+    background: url('../../images/background.png') no-repeat center center fixed;
+    background-size: cover; /* Cover all available view */
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+a {
+    color: var(--accent-color);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--secondary-color);
+    text-decoration: none;
+}

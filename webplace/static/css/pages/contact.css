@@ -1,0 +1,5 @@
+.contact-form {
+    padding: 2rem;
+    background-color: var(--background-color);
+    border: 1px solid #ccc;
+}

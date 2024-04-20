@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load star_rating %}
+{% load static %}
 {% block content %}
 
 <div class="py-4">
@@ -60,23 +61,16 @@
 
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api }}&callback=initMap" async defer></script>
+
 
 <div id="hotelMap" style="height: 400px;"></div>
 
-<script>
-    function initMap() {
-        var hotelLocation = {lat: {{ hotel.latitude }}, lng: {{ hotel.longitude }}};
-        var map = new google.maps.Map(document.getElementById('hotelMap'), {
-            zoom: 15,
-            center: hotelLocation
-        });
-        var marker = new google.maps.Marker({
-            position: hotelLocation,
-            map: map
-        });
-    }
-</script>
+<input type="hidden" id="hotelLat" value="{{ hotel.latitude }}">
+<input type="hidden" id="hotelLng" value="{{ hotel.longitude }}">
+
+<script src="{% static 'js/additions/hotel_map.js' %}" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api }}&callback=initMap&libraries=marker" async defer></script>
+
 
 
 <div class="container py-4">

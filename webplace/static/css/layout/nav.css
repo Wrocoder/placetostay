@@ -1,0 +1,18 @@
+.navbar {
+  background-color: #2EBCC6; /* background */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* shadow */
+}
+
+.navbar-custom {
+    background-color: #004F6B; /* change */
+}
+.nav-link {
+    color: #ffffff !important; /* links */
+}
+.nav-link:hover {
+    background-color: #016788; /* dark-blue */
+    border-radius: 5px; /*  */
+}
+.navbar-brand img {
+    height: 60px; /* logo */
+}
