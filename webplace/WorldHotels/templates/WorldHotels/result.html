@@ -3,54 +3,49 @@
 {% block content %}
 
 <div class="container py-4">
-    <h2 class="mb-4 text-center">Average weather in {{ country }} in {{ month }}</h2>
+    <h2 class="mb-4 text-center">Average Weather in {{ country }} in {{ month }}</h2>
 
-<div class="text-center mb-4">
-    <div class="row justify-content-center">
-        <div class="col-md-3 mb-3">
-            <div class="p-3 border rounded bg-light">
-                <h5>Average Temperature</h5>
-                <span class="card-text">{{ average_weather.average_temperature }}</span>
-            </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="p-3 border rounded bg-light">
-                <h5>Precipitation Level</h5>
-                <span class="card-text">{{ average_weather.precipitation_level }}</span>
-            </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="p-3 border rounded bg-light">
-                <h5>Air Speed</h5>
-                <span class="card-text">{{ average_weather.air_speed }}</span>
-            </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="p-3 border rounded bg-light">
-                <h5>Recommended to Visit</h5>
-                <span class="card-text">{{ average_weather.recommended_to_visit }}</span>
-            </div>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Average Temperature</th>
+                    <th scope="col">Precipitation Level</th>
+                    <th scope="col">Air Speed</th>
+                    <th scope="col">Amount of tourists</th>
+                    <th scope="col">Recommended to Visit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ average_weather.average_temperature }}</td>
+                    <td>{{ average_weather.precipitation_level }}</td>
+                    <td>{{ average_weather.air_speed }}</td>
+                    <td>{{ tourists }}</td>
+                    <td>{{ average_weather.recommended_to_visit }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-
-
-    <div class="text-center mb-4">
-        <div class="row justify-content-center">
-            <div class="col-md-3 mb-3">
-                <div class="p-3 border rounded bg-light">
-                    <h5>Amount of tourists in {{ tourists.month }} in {{ tourists.year }} </h5>
-                    <span class="card-text">{{ tourists.total }}</span>
-                </div>
-            </div>
-
-        </div>
-    </div>
 
 
     <div class="alert alert-info" role="alert">
         {{ country_description.country_description }}
     </div>
+
+
+<h1>The most popular videos about {{ country }}</h1>
+<div class="video-gallery d-flex justify-content-start">
+    {% for video in videos %}
+    <div class="video-item" style="position: relative; margin-right: 15px;" data-tooltip="{{ video.title }}">
+        <div class="video-container" style="width: 240px; height: 180px; cursor: pointer;">
+            <iframe src="https://www.youtube.com/embed/{{ video.video_url }}?enablejsapi=1" frameborder="0" allowfullscreen style="width: 100%; height: 100%;"></iframe>
+        </div>
+        <div class="tooltip" style="display: none;">{{ video.title }}</div>
+    </div>
+    {% endfor %}
+</div>
 
 <div class="container py-4">
     <h2 class="mb-4 text-center">Available hotels in {{ country }}</h2>

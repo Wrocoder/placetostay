@@ -18,6 +18,10 @@ pycountry = "^23.12.11"
 requests = "^2.31.0"
 g4f = "^0.2.9.4"
 black = "^24.4.0"
+google-api-python-client = "^2.127.0"
+django-embed-video = "^1.4.9"
+feedparser = "^6.0.11"
+flickrapi = "^2.4.0"
 
 
 [build-system]

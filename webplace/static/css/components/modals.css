@@ -17,3 +17,8 @@
     background-color: var(--background-color);
     border-radius: 0.3rem;
 }
+.star-rating {
+    text-align: center;
+    margin-top: 0.2rem;
+    margin-bottom: 1rem;
+}

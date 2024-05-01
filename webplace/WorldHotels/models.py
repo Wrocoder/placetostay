@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Hotel(models.Model):
@@ -92,3 +93,46 @@ class CountryDescriptionData(models.Model):
 
     class Meta:
         verbose_name_plural = "Country Data"
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True, verbose_name="Name")
+
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return self.name
+
+
+class TravelHack(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Title")
+    description = models.TextField(verbose_name="Description")
+    published_date = models.DateTimeField(default=timezone.now, verbose_name="Published Date")
+    categories = models.ManyToManyField(Category, related_name='travel_hacks', blank=True, verbose_name="Categories")
+
+    class Meta:
+        verbose_name = "Travel Hack"
+        verbose_name_plural = "Travel Hacks"
+
+    def __str__(self):
+        return self.title
+
+
+class TravelHackImage(models.Model):
+    travel_hack = models.ForeignKey(TravelHack, related_name='images', on_delete=models.CASCADE,
+                                    verbose_name="Travel Hack")
+    image = models.ImageField(upload_to='travel_hacks/images/', verbose_name="Image")
+
+    def __str__(self):
+        return f"Image for {self.travel_hack.title}"
+
+
+class TravelHackLink(models.Model):
+    travel_hack = models.ForeignKey(TravelHack, related_name='links', on_delete=models.CASCADE,
+                                    verbose_name="Travel Hack")
+    url = models.URLField(max_length=1024, verbose_name="URL")
+
+    def __str__(self):
+        return f"Link for {self.travel_hack.title}"

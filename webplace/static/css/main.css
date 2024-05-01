@@ -8,6 +8,7 @@
 @import 'components/carousel.css';
 @import 'components/modals.css';
 @import 'components/cards.css';
+@import 'components/video.css';
 
 /* layout */
 @import 'layout/header.css';

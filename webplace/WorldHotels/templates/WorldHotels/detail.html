@@ -3,55 +3,59 @@
 {% load static %}
 {% block content %}
 
-<div class="py-4">
-    <h1 class="mb-3">{{ hotel.hotel_name }}</h1>
-    <h6 class="card-title">{{ hotel.star_rating }} Star Rating</h6>
-    {% star_rating hotel.star_rating %}
-    <!-- Overview Section -->
-    {% if hotel.overview %}
-        <div class="alert alert-info" role="alert">
-            {{ hotel.overview }}
-        </div>
-    {% endif %}
-    <!-- End Overview Section -->
-
+<div class="container py-4">
     <div class="card">
         <div class="card-body">
+             <h1 class="mb-6">{{ hotel.hotel_name }}</h1>
+                <div class="star-rating">
+                    {% star_rating hotel.star_rating %}
+                </div>
             <p class="card-text">
-                <strong>Address:</strong> {{ hotel.addressline1 }}, {{ hotel.city }}, {{ hotel.state }}, {{ hotel.country }}
+                <strong>Address:</strong>
+                {% if hotel.country %}{{ hotel.country }}{% endif %}
+                {% if hotel.state %}{% if hotel.country %}, {% endif %}{{ hotel.state }}{% endif %}
+                {% if hotel.city %}{% if hotel.country or hotel.state %}, {% endif %}{{ hotel.city }}{% endif %}
+                {% if hotel.addressline1 %}{% if hotel.country or hotel.state or hotel.city %}, {% endif %}{{ hotel.addressline1 }}{% endif %}
             </p>
-            <p>
             {% if hotel.numberrooms %}
-                <strong>Number rooms:</strong> {{ hotel.numberrooms }}<br>
+                <p>
+                    <strong>Number of rooms:</strong> {{ hotel.numberrooms }}
+                </p>
             {% endif %}
-            </p>
-            <p>
             {% if hotel.numberfloors %}
-                <strong>Number floors:</strong> {{ hotel.numberfloors }}<br>
+                <p>
+                    <strong>Number of floors:</strong> {{ hotel.numberfloors }}
+                </p>
             {% endif %}
-            </p>
-            <p>
             {% if hotel.yearopened %}
-                <strong>Year opened:</strong> {{ hotel.yearopened }}<br>
+                <p>
+                    <strong>Year opened:</strong> {{ hotel.yearopened }}
+                </p>
             {% endif %}
-            </p>
-            <p>
             {% if hotel.yearrenovated %}
-                <strong>Year renavated:</strong> {{ hotel.yearrenovated }}<br>
+                <p>
+                    <strong>Year renovated:</strong> {{ hotel.yearrenovated }}
+                </p>
             {% endif %}
-            </p>
+            {% if hotel.overview %}
+                <h1 class="mb-3">Overview</h1>
+                <div class="alert alert-info" role="alert">
+                    {{ hotel.overview }}
+                </div>
+            {% endif %}
             {% if hotel.url %}
-                <a href="{{ hotel.url }}/" class="btn btn-primary">Visit Website</a>
+                <a href="{{ hotel.url }}" class="btn btn-primary">Visit Website</a>
             {% endif %}
         </div>
     </div>
+</div>
 
     {% if photo_urls %}
         <div id="hotelPhotosCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
             <div class="carousel-inner">
                 {% for photo in photo_urls %}
                     <div class="carousel-item{% if forloop.first %} active{% endif %}" style="text-align: center;">
-                        <img src="{{ photo }}" style="max-width: 100%; height: auto;" alt="Hotel Photo">
+                        <img src="{{ photo }}" srcset="{{ photo }} 1x, {{ photo_hd }} 2x" alt="Hotel Photo" style="max-width: 50%; height: auto;">
                     </div>
                 {% endfor %}
             </div>
@@ -59,43 +63,33 @@
         </div>
     {% endif %}
 
+
+<div class="container mt-3">
+    <div id="hotelMap" style="height: 300px;"></div>
+
+    <input type="hidden" id="hotelLat" value="{{ hotel.latitude }}">
+    <input type="hidden" id="hotelLng" value="{{ hotel.longitude }}">
+
+    <script src="{% static 'js/additions/hotel_map.js' %}" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api }}&callback=initMap&libraries=marker" async defer></script>
 </div>
 
-
-
-<div id="hotelMap" style="height: 400px;"></div>
-
-<input type="hidden" id="hotelLat" value="{{ hotel.latitude }}">
-<input type="hidden" id="hotelLng" value="{{ hotel.longitude }}">
-
-<script src="{% static 'js/additions/hotel_map.js' %}" async defer></script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api }}&callback=initMap&libraries=marker" async defer></script>
-
-
-
-<div class="container py-4">
-    <h2 class="mb-3">Weather Forecast</h2>
-
+<div class="container mt-3">
+    <h2>Weather Forecast</h2>
     <div class="row">
-        {% for date, items in weather_forecast.items %}
-            <div class="col mb-3">
-                <div class="card">
-                    <div class="card-header">{{ date }}</div>
-                    <div class="card-body">
-                        {% for item in items %}
-                            <p><strong>Time:</strong> {{ item.dt|date:"H:i" }}</p>
-                            <p><strong>Temperature:</strong> {{ item.main.temp }}°F</p>
-                            <p><strong>Weather:</strong> {{ item.weather.0.description }}</p>
-                            <!-- Additional weather attributes -->
-                            <hr>
-                        {% endfor %}
-                    </div>
+        {% for day, data in weather_forecast.items %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ day }}</h5>
+                    <p class="card-text"><strong>Average Temperature:</strong> {{ data.average_temp }}°C</p>
+                    <p class="card-text"><strong>Weather:</strong> {{ data.most_common_main }}</p>
+                    <p class="card-text"><strong>Description:</strong> {{ data.most_common_description }}</p>
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
-
 </div>
-
 
 {% endblock %}
